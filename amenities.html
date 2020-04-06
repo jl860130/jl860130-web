@@ -2,11 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Accessibility of China</title>
+<title>Amenities of China</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.css" rel="stylesheet" />
-
 <style>
 	body { margin: 0; padding: 0; }
 	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
@@ -67,7 +66,7 @@ p {
   padding: 10px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   line-height: 18px;
-  height: 120px;
+  height: 130px;
   margin-bottom: 40px;
   width: 100px;
 }
@@ -97,33 +96,32 @@ background: #ee8a65;
 </style>
 </head>
 <body>
-	<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
-	<link
-	rel="stylesheet"
-	href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"
-	type="text/css"
-	/>
-	<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
-	<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+<link
+rel="stylesheet"
+href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"
+type="text/css"
+/>
+<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 <div id="map"></div>
-<div class='map-overlay' id='features'><h2>China Vitality: Accessibility</h2><div id='pd'><p></p></div></div>
+<div class='map-overlay' id='features'><h2>China Vitality: Amenities</h2><div id='pd'><p></p></div></div>
 <div class='map-overlay' id='legend'></div>
 <br />
 <button id="fly">Fly</button>
-
 
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1Ijoiamw4NjAxMzAiLCJhIjoiY2s2b2pqZ29hMWM2YTNta2cyNHlwNHJwYSJ9.ettt6Rh0BMqhNYXTWhtTIA';
 var map = new mapboxgl.Map({
 container: 'map',
-style: 'mapbox://styles/jl860130/ck8nxd4vf0yp91isam1gtagv0',
+style: 'mapbox://styles/jl860130/ck8gugn2r0l6e1imphe1qj8lf',
 center: [116.40, 39.90],
 zoom: 8
 });
 map.on('load', function() {
-	var layers = ['0-5', '5-10', '10-15', '15-20', '20-25', '25+'];
-	var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C'];
+	var layers = ['0-5', '5-10', '10-15', '15-20', '20-25', '25-30', '30+'];
+	var colors = ['#FFEDA0', '#FED976', '#FEB44D', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026'];
 	for (i = 0; i < layers.length; i++) {
   var layer = layers[i];
   var color = colors[i];
@@ -142,11 +140,11 @@ map.on('load', function() {
 
 map.on('mousemove', function(e) {
   var states = map.queryRenderedFeatures(e.point, {
-    layers: ['Accessibility']
+    layers: ['Amenities']
   });
 
   if (states.length > 0) {
-    document.getElementById('pd').innerHTML = '<h3>City:<strong>' + states[0].properties.E_NAME + '</strong></h3><p><strong><em>' + states[0].properties.ACCESSIBIL + '</strong> per square kilometer</em></p>';
+    document.getElementById('pd').innerHTML = '<h3>City:<strong>' + states[0].properties.E_NAME + '</strong></h3><p><strong><em>' + states[0].properties.AMENITIES + '</strong> per square kilometer	</em></p>';
   } else {
     document.getElementById('pd').innerHTML = '<p></p>';
   }
@@ -158,8 +156,8 @@ accessToken: mapboxgl.accessToken,
 mapboxgl: mapboxgl
 })
 );
-
 document.getElementById('fly').addEventListener('click', function() {
+
 map.flyTo({
 center: [
 116.40 + (Math.random() - 0.5) * 5,
